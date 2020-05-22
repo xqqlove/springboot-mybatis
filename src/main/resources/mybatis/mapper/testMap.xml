@@ -1,0 +1,49 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yiwa.springbootmybatis.dao.UserDao">
+    <resultMap type="com.yiwa.springbootmybatis.entity.User" id="usermap">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="userName" property="userName" jdbcType="VARCHAR"/>
+        <result column="passWord" property="passWord" jdbcType="VARCHAR"/>
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,userName,passWord,user_sex,nick_name
+    </sql>
+
+    <select id="getUserById" resultMap="usermap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from users where id=#{id}
+    </select>
+    <select id="getAll" resultMap="usermap" parameterType="com.yiwa.springbootmybatis.dao.UserDao">
+        select
+        <include refid="Base_Column_List"/>
+        from users
+        limit #{beginLine},#{pageSize}
+    </select>
+    <insert id="insertUser" parameterType="com.yiwa.springbootmybatis.entity.User">
+        insert into users (userName,passWord,user_sex,nick_name) values(#{userName},#{passWord},#{userSex},#{nickName})
+    </insert>
+    <update id="update" parameterType="com.yiwa.springbootmybatis.entity.User">
+        update users
+        <set>
+            <if test="userName != null">
+                userName = #{userName},
+            </if>
+            <if test="passWord != null">
+                passWord =# {passWord},
+            </if>
+            <if test="userSex != null">
+                user_sex = #{userSex},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName},
+            </if>
+        </set>
+        where id =# {id}
+    </update>
+</mapper>

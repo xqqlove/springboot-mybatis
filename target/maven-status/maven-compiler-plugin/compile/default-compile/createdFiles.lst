@@ -1,0 +1,4 @@
+com\yiwa\springbootmybatis\utils\PageParam.class
+com\yiwa\springbootmybatis\entity\User.class
+com\yiwa\springbootmybatis\SpringbootMybatisApplication.class
+com\yiwa\springbootmybatis\dao\UserDao.class
